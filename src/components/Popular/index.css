@@ -1,0 +1,57 @@
+.list-items {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  margin-top: 10px;
+}
+.bg-container {
+  background-color: #333333;
+  background-size: cover;
+}
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+}
+.failure-container {
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-bottom: 24px;
+}
+.fail-img {
+  width: 25px;
+  height: 25px;
+}
+.fail-text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  color: #ffffff;
+  line-height: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+.try-again-btn {
+  border-radius: 4px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  color: #171f46;
+  margin-bottom: 8px;
+  width: 80px;
+  height: 32px;
+  background-color: #ffffff;
+  border: none;
+}
+@media (min-width: 768px) {
+  .list-items {
+    margin-top: 30px;
+    padding-left: 170px;
+    padding-right: 170px;
+  }
+}

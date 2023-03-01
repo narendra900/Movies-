@@ -1,0 +1,40 @@
+.not-found-container {
+  background-image: url('https://res.cloudinary.com/dkbxi5qts/image/upload/v1660153718/movies%20prime%20app/not_found_background_lg_tqwqrb.svg');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.not-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 50px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+.not-text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 30px;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.back-to-home {
+  width: 220px;
+  height: 40px;
+  background-color: #ffffff;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+  color: #171f46;
+  margin-bottom: 10px;
+}
