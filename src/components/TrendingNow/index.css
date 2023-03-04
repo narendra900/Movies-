@@ -1,0 +1,25 @@
+.trending-now-container {
+  width: 95%;
+  padding-left: 28px;
+}
+
+@media screen and (min-width: 992px) {
+  .trending-now-container {
+    width: 100%;
+    padding-left: 30px;
+  }
+}
+
+.failure-container {
+  height: 100px;
+  width: 90%;
+  font-size: 10px;
+  margin: auto;
+}
+
+@media screen and (min-width: 992px) {
+  .failure-container {
+    height: 170px;
+    font-size: 14px;
+  }
+}

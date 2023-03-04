@@ -1,0 +1,146 @@
+.search-filter-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #131313;
+  min-height: 100vh;
+  padding-bottom: 32px;
+}
+
+@media screen and (min-width: 992px) {
+  .search-filter-container {
+    padding-bottom: 67px;
+  }
+}
+
+.search-movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style-type: none;
+  padding-left: 32px;
+  margin-top: 16px;
+  margin-bottom: 37px;
+  width: 100%;
+}
+
+@media screen and (min-width: 992px) {
+  .search-movies-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 80px;
+    padding-right: 20px;
+    margin-top: 32px;
+    margin-bottom: 48px;
+  }
+}
+
+.search-movies-item {
+  margin-right: 20px;
+  margin-bottom: 16px;
+  object-fit: contain;
+}
+
+.search-movies-img {
+  width: 90px;
+  height: 120px;
+  border-radius: 8px;
+}
+
+@media screen and (min-width: 576px) {
+  .search-movies-img {
+    width: 160px;
+    height: 145px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .search-movies-img {
+    width: 255px;
+    height: 170px;
+  }
+}
+
+.search-not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+}
+
+.search-not-found-img {
+  height: 280px;
+  width: 250px;
+  object-fit: contain;
+}
+
+@media screen and (min-width: 992px) {
+  .search-not-found-img {
+    height: 320px;
+    width: 410px;
+    object-fit: contain;
+  }
+}
+
+.not-found-desc {
+  height: 48px;
+  width: 296px;
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 992px) {
+  .not-found-desc {
+    font-size: 24px;
+    height: 31px;
+    width: 565px;
+    margin-top: 30px;
+  }
+}
+
+.loader-container {
+  height: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fail-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fail-image {
+  margin-bottom: 24px;
+}
+
+.fail-heading {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 32px;
+}
+
+@media screen and (min-width: 992px) {
+  .fail-image {
+    margin-bottom: 33px;
+  }
+  .fail-heading {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+}

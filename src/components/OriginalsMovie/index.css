@@ -1,0 +1,11 @@
+.original-movie-container {
+  width: 95%;
+  padding-left: 28px;
+}
+
+@media screen and (min-width: 992px) {
+  .original-movie-container {
+    width: 100%;
+    padding-left: 30px;
+  }
+}

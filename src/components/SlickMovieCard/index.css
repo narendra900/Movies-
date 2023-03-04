@@ -1,0 +1,47 @@
+.slick-container {
+  width: 95%;
+  position: relative;
+}
+
+@media screen and (min-width: 992px) {
+  .slick-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+.slick-item {
+  list-style-type: none;
+  width: 100%;
+  object-fit: contain;
+}
+
+.slick-movie-img {
+  height: 110px;
+  width: 90%;
+  border-radius: 8px;
+  margin-left: 6px;
+}
+
+@media screen and (min-width: 992px) {
+  .slick-movie-img {
+    height: 170px;
+    width: 90%;
+    margin-left: 15px;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .slick-movie-img {
+    height: 350px;
+    width: 90%;
+    margin-left: 15px;
+    border-radius: 15px;
+  }
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #fff;
+  font-size: 24px;
+}

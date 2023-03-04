@@ -1,0 +1,141 @@
+.banner-item {
+  height: 427px;
+  width: 100%;
+  object-fit: contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+@media screen and (min-width: 992px) {
+  .banner-item {
+    height: 501px;
+    object-fit: contain;
+    width: 100%;
+  }
+}
+
+.left-fade {
+  height: 100%;
+  width: 309px;
+  background: linear-gradient(
+    90.33deg,
+    #181818 -6.5%,
+    rgba(24, 24, 24, 0.6) 57.15%,
+    rgba(24, 24, 24, 0) 99.77%
+  );
+  position: absolute;
+}
+
+@media screen and (min-width: 992px) {
+  .left-fade {
+    width: 751px;
+  }
+}
+
+.banner-item-content {
+  height: 182px;
+  max-width: 600px;
+  padding-top: 120px;
+  padding-left: 32px;
+  padding-right: 32px;
+  position: relative;
+  color: #fff;
+}
+
+@media screen and (min-width: 992px) {
+  .banner-item-content {
+    height: 235px;
+    padding-top: 160px;
+    padding-left: 80px;
+    padding-right: 80px;
+    max-width: 700px;
+  }
+}
+
+.banner-item-title {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+@media screen and (min-width: 992px) {
+  .banner-item-title {
+    font-size: 50px;
+    margin-bottom: 12px;
+  }
+}
+
+.content-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.runtime {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  margin-right: 20px;
+}
+
+@media screen and (min-width: 992px) {
+  .runtime {
+    font-size: 18px;
+    margin-right: 25px;
+  }
+}
+
+.adult {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 4px 10px;
+  color: #ffffff;
+  border: 1px solid #fff;
+  margin-right: 20px;
+}
+
+@media screen and (min-width: 992px) {
+  .adult {
+    font-size: 18px;
+    margin-right: 25px;
+  }
+}
+
+.years {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+@media screen and (min-width: 992px) {
+  .years {
+    font-size: 18px;
+  }
+}
+
+.banner-item-overview {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+@media screen and (min-width: 992px) {
+  .banner-item-overview {
+    font-size: 20px;
+    margin-bottom: 32px;
+  }
+}

@@ -1,104 +1,141 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
-import Loader from 'react-loader-spinner'
+
+import {FaAngleLeft, FaAngleRight} from 'react-icons/fa'
+
 import Header from '../Header'
+import MovieLists from '../MovieLists'
 import Footer from '../Footer'
-import MovieItems from '../MovieItems'
+import FailureView from '../FailureView'
+import Loaders from '../Loader'
+
 import './index.css'
 
-const popularConst = {
+const apiStatusConstants = {
   initial: 'INITIAL',
-  in_progress: 'IN_PROGRESS',
   success: 'SUCCESS',
   failure: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
 }
 
-const activePopular = true
-
-class Popular extends Component {
-  state = {popularMoviesList: [], popularStatus: popularConst.initial}
+class PopularMovies extends Component {
+  state = {
+    popularMovies: [],
+    moviesPerPage: 16,
+    currentPage: 1,
+    apiStatus: apiStatusConstants.initial,
+  }
 
   componentDidMount() {
-    this.getPopularMoviesData()
+    this.getPopularMovieList()
   }
 
-  getPopularMoviesData = async () => {
-    this.setState({popularStatus: popularConst.in_progress})
+  onRetry = () => {
+    this.getPopularMovieList()
+  }
+
+  getPopularMovieList = async () => {
+    this.setState({apiStatus: apiStatusConstants.inProgress})
     const jwtToken = Cookies.get('jwt_token')
-    const popularMoviesApi = 'https://apis.ccbp.in/movies-app/popular-movies'
+    const apiUrl = 'https://apis.ccbp.in/movies-app/popular-movies'
     const options = {
       method: 'GET',
-      headers: {Authorization: `Bearer ${jwtToken}`},
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
     }
-    const response = await fetch(popularMoviesApi, options)
-    if (response.ok) {
+    const response = await fetch(apiUrl, options)
+    if (response.ok === true) {
       const data = await response.json()
-      const convertedData = data.results.map(each => ({
-        backdropPath: each.backdrop_path,
-        posterPath: each.poster_path,
-        id: each.id,
-        title: each.title,
+      const popularMovies = data.results.map(eachItem => ({
+        backdropPath: eachItem.backdrop_path,
+        id: eachItem.id,
+        posterPath: eachItem.poster_path,
+        title: eachItem.title,
       }))
-      this.setState({
-        popularMoviesList: convertedData,
-        popularStatus: popularConst.success,
-      })
+      this.setState({popularMovies, apiStatus: apiStatusConstants.success})
     } else {
-      this.setState({popularStatus: popularConst.failure})
+      this.setState({apiStatus: apiStatusConstants.failure})
     }
-  }
-
-  tryAgainPopularData = () => {
-    this.getPopularMoviesData()
   }
 
   renderFailureView = () => (
-    <div className="failure-container">
-      <img
-        src="https://res.cloudinary.com/dkbxi5qts/image/upload/v1660153718/movies%20prime%20app/failure_img_vggqi4.svg"
-        alt="failure view"
-        className="fail-img"
-      />
-      <p className="fail-text">Something went wrong. Please try again</p>
-      <button
-        type="button"
-        className="try-agin-button"
-        onClick={this.tryAgainPopularData}
-      >
-        Try Again
-      </button>
+    <div className="failure-movies-container">
+      <FailureView onRetry={this.onRetry} />
     </div>
   )
 
-  renderLoadingView = () => (
-    <div className="loader-container" testid="loader">
-      <Loader type="TailSpin" color="#D81F26" height={50} width={50} />
+  renderLoading = () => (
+    <div className="loader" testid="loader">
+      <Loaders />
     </div>
   )
 
-  renderSuccessView = () => {
-    const {popularMoviesList} = this.state
+  onCLickPrevPage = () => {
+    const {currentPage} = this.state
+    return currentPage !== 1
+      ? this.setState(prevState => ({currentPage: prevState.currentPage - 1}))
+      : currentPage
+  }
+
+  onCLickNextPage = () => {
+    const {popularMovies, moviesPerPage, currentPage} = this.state
+    const totalPages = Math.ceil(popularMovies.length / moviesPerPage)
+    return currentPage !== totalPages
+      ? this.setState(prevState => ({currentPage: prevState.currentPage + 1}))
+      : currentPage
+  }
+
+  renderPopularMovies = () => {
+    const {popularMovies, moviesPerPage, currentPage} = this.state
+    const totalPage = Math.ceil(popularMovies.length / moviesPerPage)
+    const indexOfLastMovies = currentPage * moviesPerPage
+    const indexOfFirstMovies = indexOfLastMovies - moviesPerPage
+    const visibleMovies = popularMovies.slice(
+      indexOfFirstMovies,
+      indexOfLastMovies,
+    )
+    const moviePerPage = popularMovies.length > 16 ? 'pagination' : 'no-page'
     return (
       <>
-        <Header isPopular={activePopular} />
-        <ul className="list-items">
-          {popularMoviesList.map(each => (
-            <MovieItems eachMovie={each} key={each.id} />
+        <ul className="pop-mov-lists">
+          {visibleMovies.map(eachMovie => (
+            <MovieLists key={eachMovie.id} movieLists={eachMovie} />
           ))}
         </ul>
+        <div className={moviePerPage}>
+          <button
+            type="button"
+            className="page-btn"
+            onClick={this.onCLickPrevPage}
+          >
+            <FaAngleLeft />
+          </button>
+
+          <p className="pagination">
+            {currentPage}of{totalPage}
+          </p>
+          <button
+            type="button"
+            className="page-btn"
+            onClick={this.onCLickNextPage}
+          >
+            <FaAngleRight />
+          </button>
+        </div>
       </>
     )
   }
 
-  renderViews = () => {
-    const {popularStatus} = this.state
-    switch (popularStatus) {
-      case popularConst.in_progress:
-        return this.renderLoadingView()
-      case popularConst.success:
-        return this.renderSuccessView()
-      case popularConst.failure:
+  renderPopularMovieStatus = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.success:
+        return this.renderPopularMovies()
+      case apiStatusConstants.failure:
         return this.renderFailureView()
+      case apiStatusConstants.inProgress:
+        return this.renderLoading()
       default:
         return null
     }
@@ -106,11 +143,13 @@ class Popular extends Component {
 
   render() {
     return (
-      <>
-        {this.renderViews()}
+      <div className="popular-movie-container">
+        <Header />
+        {this.renderPopularMovieStatus()}
         <Footer />
-      </>
+      </div>
     )
   }
 }
-export default Popular
+
+export default PopularMovies

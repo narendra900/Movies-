@@ -1,57 +1,91 @@
-.list-items {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-  margin-top: 10px;
-}
-.bg-container {
-  background-color: #333333;
-  background-size: cover;
-}
-.loader-container {
+.popular-movie-container {
   display: flex;
   flex-direction: column;
+  background-color: #131313;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.pop-mov-lists {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  height: 80vh;
-}
-.failure-container {
+  list-style-type: none;
   padding-left: 32px;
-  padding-right: 32px;
-  margin-bottom: 24px;
-}
-.fail-img {
-  width: 25px;
-  height: 25px;
-}
-.fail-text {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
-  color: #ffffff;
-  line-height: 16px;
   margin-top: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 32px;
+  width: 100%;
 }
-.try-again-btn {
-  border-radius: 4px;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
-  color: #171f46;
-  margin-bottom: 8px;
-  width: 80px;
-  height: 32px;
-  background-color: #ffffff;
-  border: none;
-}
-@media (min-width: 768px) {
-  .list-items {
-    margin-top: 30px;
-    padding-left: 170px;
-    padding-right: 170px;
+
+@media screen and (min-width: 992px) {
+  .pop-mov-lists {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 80px;
+    padding-right: 20px;
+    margin-top: 32px;
+    margin-bottom: 48px;
   }
+}
+
+.popular-movie-item {
+  margin-right: 20px;
+  margin-bottom: 16px;
+  object-fit: contain;
+}
+
+.popular-movie-img {
+  width: 90px;
+  height: 120px;
+  border-radius: 8px;
+}
+
+@media screen and (min-width: 576px) {
+  .popular-movie-img {
+    width: 160px;
+    height: 145px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .popular-movie-img {
+    width: 255px;
+    height: 170px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  margin-top: 32px;
+  margin: auto;
+}
+
+.no-page {
+  display: none;
+}
+
+.page-btn {
+  height: 24px;
+  width: 24px;
+  padding-top: 3px;
+  border: 1px solid #d7dfe9;
+  color: #fff;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.pagination {
+  font-family: 'Bree Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+  color: #cbd5e1;
+  margin-left: 12px;
+  margin-right: 12px;
+  letter-spacing: 2px;
 }

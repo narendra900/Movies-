@@ -1,129 +1,155 @@
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
+
 import {HiOutlineSearch} from 'react-icons/hi'
-import {MdMenuOpen} from 'react-icons/md'
-import {AiFillCloseCircle} from 'react-icons/ai'
+
 import './index.css'
 
 class Header extends Component {
-  state = {activeFullMenu: false, searchValue: ''}
+  state = {showMenuOptions: false, searchInput: ''}
 
-  activeFullMenuFun = () => {
-    this.setState({activeFullMenu: true})
+  onClickShowMenuOptions = () => {
+    this.setState({showMenuOptions: true})
   }
 
-  nonActiveFullMenu = () => {
-    this.setState({activeFullMenu: false})
+  onClickToCLoseMenu = () => {
+    this.setState({showMenuOptions: false})
   }
 
   onChangeSearchInput = event => {
-    this.setState({searchValue: event.target.value})
+    this.setState({searchInput: event.target.value})
   }
 
-  onSearch = () => {
-    const {getSearchResultsData, activeSearchRoute} = this.props
-    const {searchValue} = this.state
-    if (searchValue !== '' && activeSearchRoute) {
-      getSearchResultsData(searchValue)
+  onClickSearchMovies = () => {
+    const {searchInput} = this.state
+    const {getSearchInputMovies} = this.props
+    if (searchInput !== '') {
+      getSearchInputMovies(searchInput)
     }
   }
 
   render() {
-    const {searchValue, activeFullMenu} = this.state
-    const {
-      activeSearchRoute,
-      activeHome,
-      activePopular,
-      activeAccount,
-    } = this.props
-    const searchContainer = activeSearchRoute
-      ? 'search-input-route-container search-input-container'
-      : 'search-input-container'
-    const searchButton = activeSearchRoute
-      ? 'search-route-button search-button'
-      : 'search-button'
-    const searchIcon = activeSearchRoute ? 'icons search-route-icon' : 'icons'
-    const homeRoute = activeHome ? 'menu-items highlight' : 'menu-items'
-    const popularRoute = activePopular ? 'menu-items highlight' : 'menu-items'
-    const accountRoute = activeAccount ? 'menu-items highlight' : 'menu-items'
+    const {showMenuOptions, searchInput} = this.state
+
+    const {match} = this.props
+    const {path} = match
+    const moviesPath = path.split('/:')
+    const movies = moviesPath[0]
+    const menuHome = movies === '/' ? 'home' : ''
+    const menuPopular = movies === '/popular' ? 'popular' : ''
+    const menuAccount = movies === '/account' ? 'account' : ''
+    const moviesItem = movies === '/movies' ? 'movies' : ''
+    const moviesSearch = movies === '/search'
+
     return (
-      <nav className="nav-bar header">
-        <Link to="/" className="img-link">
-          <img
-            className="header-website"
-            alt="website logo"
-            src="https://res.cloudinary.com/dkbxi5qts/image/upload/v1660479354/Group_7399_nn7x3u.png"
-          />
-        </Link>
-        <ul className="show-menu show1">
-          <Link to="/">
-            <li className={homeRoute}>Home</li>
-          </Link>
-          <Link to="/popular">
-            <li className={popularRoute}>Popular</li>
-          </Link>
-        </ul>
-        <div className="search-icon-container">
-          <div className={searchContainer}>
-            {activeSearchRoute && (
-              <input
-                type="search"
-                placeholder="search"
-                value={searchValue}
-                onChange={this.onChangeSearchInput}
-                className="search-input"
-              />
-            )}
-            <Link to="/search">
-              <HiOutlineSearch
-                className={(searchIcon, searchButton)}
-                onClick={this.onSearch}
-                type="button"
-                testid="searchButton"
-              />
-            </Link>
-            <Link to="/account">
+      <nav className={`nav-container bg-${menuHome} bg-${moviesItem}`}>
+        <div className="nav-header-container">
+          <div className="desktop-nav-company">
+            <Link to="/" className="nav-link">
               <img
-                src="https://res.cloudinary.com/dkbxi5qts/image/upload/v1660573232/Avatar_giy0y5.png"
-                className="avatar show1"
-                alt="profile"
+                src="https://res.cloudinary.com/ddh3lzbxs/image/upload/v1671714961/Group_7399_qfscnk.png"
+                alt="website logo"
+                className="logo"
               />
             </Link>
+            <ul className="desktop-menu-list">
+              <Link to="/" className="nav-link">
+                <li className={`desktop-menu-item ${menuHome}`}>Home</li>
+              </Link>
+              <Link to="/popular" className="nav-link">
+                <li className={`desktop-menu-item ${menuPopular}`}>Popular</li>
+              </Link>
+            </ul>
+          </div>
+          <ul className="nav-elements-list">
+            <li>
+              {moviesSearch && (
+                <div className="search-input-cont">
+                  <input
+                    type="search"
+                    placeholder="Search"
+                    value={searchInput}
+                    className="search-input"
+                    onChange={this.onChangeSearchInput}
+                  />
+                  <button
+                    type="button"
+                    className="search-nav-btn"
+                    onClick={this.onClickSearchMovies}
+                    testid="searchButton"
+                  >
+                    <HiOutlineSearch className="search-input-icon" />
+                  </button>
+                </div>
+              )}
+              {!moviesSearch && (
+                <Link to="/search">
+                  <button
+                    type="button"
+                    className="nav-btn"
+                    onClick={this.onClickShowSearchBar}
+                    testid="searchButton"
+                  >
+                    <HiOutlineSearch className="search-icon" />
+                  </button>
+                </Link>
+              )}
+            </li>
+            <li>
+              <button
+                type="button"
+                className="mobile-menu-btn"
+                onClick={this.onClickShowMenuOptions}
+              >
+                <img
+                  src="https://res.cloudinary.com/ddh3lzbxs/image/upload/v1671733377/add-to-queue_1_maqlau.png"
+                  alt="menu"
+                  className="mobile-hamburger-menu"
+                />
+              </button>
+              <Link to="/account" className="nav-link">
+                <img
+                  src="https://res.cloudinary.com/ddh3lzbxs/image/upload/v1671743310/Avatar_kdvwod.png"
+                  alt="profile"
+                  className="desktop-avatar"
+                />
+              </Link>
+            </li>
+          </ul>
+        </div>
+        {showMenuOptions && (
+          <div className="mobile-menu-options-cont">
+            <ul className="mobile-menu-options-list">
+              <Link to="/" className="nav-link">
+                <li className={`mobile-menu-options-item ${menuHome}`}>Home</li>
+              </Link>
+              <Link to="/popular" className="nav-link">
+                <li className={`mobile-menu-options-item ${menuPopular}`}>
+                  Popular
+                </li>
+              </Link>
+              <Link to="/account" className="nav-link">
+                <li className={`mobile-menu-options-item ${menuAccount}`}>
+                  Account
+                </li>
+              </Link>
+            </ul>
             <button
               type="button"
-              className="show close-btn"
-              onClick={this.activeFullMenuFun}
+              className="mobile-cross-nav-btn"
+              onClick={this.onClickToCLoseMenu}
             >
-              <MdMenuOpen className="hamburger icons" />
+              <img
+                src="https://res.cloudinary.com/ddh3lzbxs/image/upload/v1671737691/Shape_wmvgfk.png"
+                alt="cross"
+                className="mobile-cross"
+              />
             </button>
           </div>
-        </div>
-        <nav className=" show">
-          {activeFullMenu && (
-            <ul className="show-menu">
-              <Link to="/">
-                <li className={homeRoute}>Home</li>
-              </Link>
-              <Link to="/popular">
-                <li className={popularRoute}>Popular</li>
-              </Link>
-              <Link to="/account">
-                <li className={accountRoute}>Account</li>
-              </Link>
-              <li>
-                <button
-                  type="button"
-                  onClick={this.nonActiveFullMenu}
-                  className="close-btn"
-                >
-                  <AiFillCloseCircle className="close icons" />
-                </button>
-              </li>
-            </ul>
-          )}
-        </nav>
+        )}
       </nav>
     )
   }
 }
-export default Header
+
+export default withRouter(Header)
